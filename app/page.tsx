@@ -10,6 +10,10 @@ export default function Home() {
   >([]);
   const [showFinalMessage, setShowFinalMessage] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(
+    null
+  );
 
   // Detector de dispositivo móvil
   useEffect(() => {
@@ -123,17 +127,13 @@ export default function Home() {
       setShowTitle(false);
 
       // Comenzar a añadir palabras que caen en intervalos
-      const wordInterval = setInterval(
-        () => {
-          setFallingWordElements((prev) => {
-            // Limitar el número de palabras según el dispositivo
-            const maxWords = isMobile ? 10 : 20;
-            if (prev.length >= maxWords) return prev;
-            return [...prev, createFallingWord()];
-          });
-        },
-        isMobile ? 1000 : 800
-      ); // Intervalo más lento en móviles
+      const wordInterval = setInterval(() => {
+        setFallingWordElements((prev) => {
+          // Limitar a 20 palabras simultáneas como máximo para evitar sobrecarga
+          if (prev.length >= 20) return prev;
+          return [...prev, createFallingWord()];
+        });
+      }, 800); // Intervalo entre apariciones de palabras
 
       // Mostrar el mensaje final después de 10 segundos
       const finalMessageTimer = setTimeout(() => {
@@ -150,7 +150,46 @@ export default function Home() {
     return () => {
       clearTimeout(titleTimer);
     };
-  }, [createFallingWord, isMobile]);
+  }, [createFallingWord]);
+
+  // Efecto para manejar el audio
+  useEffect(() => {
+    // Crear el elemento de audio
+    const audio = new Audio("/rain.wav");
+    audio.loop = true;
+    setAudioElement(audio);
+
+    // Intentar reproducir automáticamente
+    audio
+      .play()
+      .then(() => {
+        setIsPlaying(true);
+      })
+      .catch((error) => {
+        console.log("Reproducción automática bloqueada:", error);
+        // El audio necesitará interacción del usuario
+      });
+
+    // Limpiar cuando el componente se desmonte
+    return () => {
+      audio.pause();
+      audio.src = "";
+    };
+  }, []);
+
+  // Función para manejar la reproducción
+  const toggleAudio = useCallback(() => {
+    if (audioElement) {
+      if (isPlaying) {
+        audioElement.pause();
+      } else {
+        audioElement.play().catch((error) => {
+          console.log("Error al reproducir el audio:", error);
+        });
+      }
+      setIsPlaying(!isPlaying);
+    }
+  }, [isPlaying, audioElement]);
 
   return (
     <div
@@ -164,6 +203,24 @@ export default function Home() {
         backgroundAttachment: "fixed", // Esto ayuda a manejar el escenario en dispositivos móviles
       }}
     >
+      {/* Botón personalizado para controlar el audio */}
+      <button
+        onClick={toggleAudio}
+        className="fixed top-4 right-4 z-50 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-4 py-2 rounded-full shadow-lg transition-all duration-300 flex items-center space-x-2"
+      >
+        {isPlaying ? (
+          <>
+            <span className="material-icons">pause</span>
+            <span>Pausar Música</span>
+          </>
+        ) : (
+          <>
+            <span className="material-icons">play_arrow</span>
+            <span>Reproducir Lluvia</span>
+          </>
+        )}
+      </button>
+
       {showTitle && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="text-center max-w-xs md:max-w-3xl p-4 md:p-8 backdrop-blur-sm animate-fade-in">

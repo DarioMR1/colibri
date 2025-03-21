@@ -26,6 +26,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        />
         <link rel="icon" href="/Recurso 1.svg" type="image/svg+xml" />
       </head>
       <body
