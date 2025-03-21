@@ -220,3 +220,39 @@ body {
 .animate-rise {
   animation: rise 2s ease-out forwards;
 }
+
+/* Ajustamos la animación zigzag para dispositivos móviles */
+@media (max-width: 767px) {
+  @keyframes zigzag {
+    0% {
+      transform: translate(-30vw, -20vh) scaleX(1);
+    }
+    19.99% {
+      transform: translate(30vw, 20vh) scaleX(1);
+    }
+    20% {
+      transform: translate(30vw, 20vh) scaleX(-1);
+    }
+    39.99% {
+      transform: translate(-30vw, -20vh) scaleX(-1);
+    }
+    40% {
+      transform: translate(-30vw, -20vh) scaleX(1);
+    }
+    59.99% {
+      transform: translate(30vw, 20vh) scaleX(1);
+    }
+    60% {
+      transform: translate(30vw, 20vh) scaleX(-1);
+    }
+    79.99% {
+      transform: translate(-30vw, -20vh) scaleX(-1);
+    }
+    80% {
+      transform: translate(-30vw, -20vh) scaleX(1);
+    }
+    100% {
+      transform: translate(-30vw, -20vh) scaleX(1);
+    }
+  }
+}
