@@ -24,3 +24,199 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+@keyframes flutter {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-5px) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(0) rotate(1deg);
+  }
+  75% {
+    transform: translateY(3px) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.animate-flutter {
+  animation: flutter 0.5s infinite ease-in-out;
+  transform-origin: center;
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+@keyframes slideDown {
+  0% {
+    background-position: top;
+  }
+  100% {
+    background-position: bottom;
+  }
+}
+
+.animate-background {
+  animation: slideDown 5s ease-in-out forwards;
+}
+
+@keyframes zigzag {
+  0% {
+    transform: translate(-50vw, -30vh) scaleX(1);
+  }
+  19.99% {
+    transform: translate(50vw, 30vh) scaleX(1);
+  }
+  20% {
+    transform: translate(50vw, 30vh) scaleX(-1);
+  }
+  39.99% {
+    transform: translate(-50vw, -30vh) scaleX(-1);
+  }
+  40% {
+    transform: translate(-50vw, -30vh) scaleX(1);
+  }
+  59.99% {
+    transform: translate(50vw, 30vh) scaleX(1);
+  }
+  60% {
+    transform: translate(50vw, 30vh) scaleX(-1);
+  }
+  79.99% {
+    transform: translate(-50vw, -30vh) scaleX(-1);
+  }
+  80% {
+    transform: translate(-50vw, -30vh) scaleX(1);
+  }
+  100% {
+    transform: translate(-50vw, -30vh) scaleX(1);
+  }
+}
+
+.animate-zigzag {
+  animation: zigzag 8s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.text-shadow {
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.5), 0 0 16px rgba(255, 255, 255, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  .text-shadow {
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8), 0 0 16px rgba(255, 255, 255, 0.3);
+  }
+}
+
+@keyframes fallDown {
+  0% {
+    transform: translateY(-20vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120vh);
+    opacity: 0;
+  }
+}
+
+.falling-word {
+  position: absolute;
+  animation: fallDown 8s linear forwards;
+  color: var(--foreground);
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7),
+    0 0 20px rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+
+.falling-word.delay-1 {
+  animation-delay: 0.5s;
+}
+.falling-word.delay-2 {
+  animation-delay: 1.2s;
+}
+.falling-word.delay-3 {
+  animation-delay: 2s;
+}
+.falling-word.delay-4 {
+  animation-delay: 2.8s;
+}
+.falling-word.delay-5 {
+  animation-delay: 3.5s;
+}
+.falling-word.delay-6 {
+  animation-delay: 4.3s;
+}
+.falling-word.delay-7 {
+  animation-delay: 5s;
+}
+.falling-word.delay-8 {
+  animation-delay: 5.7s;
+}
+.falling-word.delay-9 {
+  animation-delay: 6.4s;
+}
+.falling-word.delay-10 {
+  animation-delay: 7.1s;
+}
+
+/* Sombra de texto más fuerte para el mensaje final */
+.text-shadow-strong {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+/* Animación para el mensaje final */
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: rise 2s ease-out forwards;
+}
